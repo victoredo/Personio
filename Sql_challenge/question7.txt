@@ -1,0 +1,53 @@
+
+Performance and Optimization:
+Redundant DISTINCT and GROUP BY: In the us_sellers CTE, using both DISTINCT and GROUP BY is redundant. One should suffice for eliminating duplicates.
+
+Early Filtering: The date and country conditions could be applied in the us_sellers CTE to reduce the amount of data that needs to be processed.
+
+Column Selection: The subquery joined with the alias p selects multiple columns (CATEGORY, SUBCATEGORY, MODEL, BRAND), but only CATEGORY is actually used in the main query. 
+Reducing the selected columns could improve performance, especially in columnar databases like Snowflake.
+
+
+Naming Conventions:
+Case Consistency: The query uses various cases for SQL keywords and table/column names. Consistent casing can improve readability.
+
+Descriptive Aliases: Using more descriptive aliases could make the query easier to understand. For example, sls and rvne are not self-explanatory.
+
+Readability:
+Indentation and Formatting: Proper indentation would make the SQL code easier to read and maintain.
+
+Comments: comments are included for table names, additional comments could be beneficial to describe the query's logic.
+
+Commas: The query mixes both leading and trailing commas, which can be confusing and make the code less readable. 
+
+
+proposed update to the query below
+
+with 
+
+us_sellers as ( 
+    select 
+        id_buyer, 
+        id_seller_country 
+    from dwh_sls.fct_vc_sls_order_product as sales
+    where id_seller_country = 223
+      and date_payment >= '2021-01-01'
+      and date_payment < current_date
+    group by id_buyer, id_seller_country
+)
+select 
+    product.category,
+    sales.id_seller_country,
+    sum(sales.price_sold) as total_sales,
+    sum(sales.gmv) as total_gmv,
+    count(distinct sales.id_product) as num_products
+from dwh_usr.dim_vc_usr_customer as customer
+left join us_sellers as us on customer.id_customer = us.id_buyer
+left join dwh_sls.fct_vc_sls_order_product as sales 
+    on sales.id_buyer = customer.id_customer
+left join (
+    select id_product, category
+    from dwh_prd.dim_vc_prd_product
+) as product 
+on product.id_product = sales.id_product
+group by product.category, sales.id_seller_country;

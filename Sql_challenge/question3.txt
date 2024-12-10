@@ -1,0 +1,31 @@
+Criteria for Creating Tables:
+Data Storage: Tables are essential for storing persistent data that can be inserted, updated, or deleted over time.
+
+Data Normalization: Tables contribute to organizing data effectively by enabling a normalized database schema, thereby maintaining data integrity.
+
+Data Ownership: When the data set does not exist elsewhere or when the database is the primary repository for the data, tables are the suitable choice.
+
+Performance: Tables offer optimized performance for write operations and can also be fine-tuned for read operations through effective indexing strategies.
+
+Flexibility and Control: Tables allow for the definition of data types, constraints, and indexes, providing a robust framework for data management.
+
+Criteria for Creating Views:
+Data Abstraction: Views are useful for encapsulating complex queries, offering a simplified interface for data retrieval.
+
+Security Measures: By restricting accessible data, views add an additional layer of security. For instance, sensitive columns can be excluded from a view.
+
+Code Reusability: Commonly used queries can be encapsulated in views, promoting code reusability and maintainability.
+
+Data Integration: Views facilitate the integration of data from multiple tables or existing views, providing a unified data interface.
+
+Read-only Operations: For scenarios requiring only data query operations without modification, views are an appropriate choice.
+
+Logical Simplification: Presenting a simplified schema through views can make the underlying data model more comprehensible for end-users.
+
+
+Summary:
+Create a Table: When you need to store and manage data, and when you need to establish data relationships, constraints, and indexes.
+
+Create a View: When you need to simplify complex queries, integrate data from multiple tables, provide a layer of security, or make it easier to read data without altering it.
+
+
