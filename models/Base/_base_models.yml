@@ -1,0 +1,115 @@
+version: 2
+
+models:
+  - name: base_customers
+    description: "customers information"
+    columns:
+      - name: customer_id
+        description: Unique identifier of customers
+        tests:
+          - not_null
+      - name: signup_date
+        description: Date when the event is triggered
+        tests: 
+          - not_null
+      - name: customer_name
+        description: customer name
+        tests:
+         - dbt_utils.not_constant
+         - not_null
+      - name: customer_email
+        description: customer email
+        tests:
+         - dbt_utils.not_constant
+         
+               
+               
+  
+ - name: base_events
+    description: "events information"
+    columns:
+      - name: created_at
+        description: date and time the event has been triggered
+        tests:
+          - not_null
+      - name: ingested_at
+        description: Date when the event was loaded
+        tests: 
+          - not_null
+      - name: event_id
+        description: Unique identifier of events
+        tests:
+          - not_null
+      - name: event_name
+        description: event name
+        tests:
+          - not_null
+
+  - name: base_invoices
+    description: " invoice information"
+    columns:
+      - name: created_at
+        tests:
+          - not_null
+      - name: invoice_id
+        tests:
+          - not_null
+      - name: customer_id
+        tests:
+          - not_null
+      
+      - name:  subscription_id
+        tests:
+          - not_null
+
+      - name: invoice_status
+        description: This shows if the invoice is an initial payment or refund 
+        tests:
+          - not_null
+      - name: surrogate_key
+        description: a combination of invoice id and status
+        tests:
+          - not_null
+      - name: total_amount
+        description: amount for the invoice. it could be negative or positive depending on the status
+        tests:
+           - not_null
+           - dbt_utils.accepted_range:
+              max_value: 0
+              config:
+                where: "invoice_status ='refund'"
+
+  - name: base_payments
+    description: "payment information"
+    columns:
+      - name: created_at
+        tests:
+          - not_null
+      - name: invoice_id
+        tests:
+          - not_null
+      - name: payment_method
+        description: payment method of the transaction
+        tests:
+          - not_null
+       
+  - name: base_subscriptions
+    description: "subscription information"
+    columns:
+      - name: created_at
+        tests:
+          - not_null
+      - name: surrogate_key
+        description: a combination of subscription_id,invoice id and status
+        tests: 
+          - not_null
+      
+
+  - name: base_products
+    description: "product information"
+    columns:
+      - name: product_id
+        tests:
+          - not_null
+      
+ 

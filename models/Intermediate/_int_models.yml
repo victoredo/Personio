@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: int_customer_transactions
+    description: normalized customer table. Table grain is one row per customer_id
+    columns:
+      - name: customer_id
+        description: Unique identifier of customers
+        tests:
+          - not_null
+          - unique
+
+  - name: int_subscriptions
+    description: normalized subscriptions table.
+    columns:
+      - name:  surrogate_key
+        description: Unique identifier of subscription 
+        tests:
+          - not_null
+          - unique
+
+  - name: int_invoice_payment
+    description: Combines invoices and payments using
+    columns:
+      - name:  surrogate_key
+        description: Unique identifier of invoice payment
+        tests:
+          - not_null
+          - unique

@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: fact_financials
+    description: fact_financials model is a fact table that aggregates and consolidates financial 
+                 metrics from the existing dimensions
+    columns:
+      - name: customer_id
+        description: Unique identifier of customers
+        tests:
+          - not_null
+          - unique

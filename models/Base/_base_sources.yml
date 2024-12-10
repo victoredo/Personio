@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: persionio_core
+    description: 'sources for analytics assets'
+    database: events
+    schema: persionio_core
+    tables:
+      - name: customers
+      - description: Represents a customer. Subscriptions, Card and Billing Address are associated with the
+                     customer resource.
+      - name: events
+      - description: logs changes in billing system
+      - name: invoices
+      - description: Represents a charge for products/services offered to a customer. It enumerates all the
+                     charges, adjustments, payments, discounts and taxes associated with the sale.
+      - name: products
+      - description: Represents a principal or key product or service in your catalog.
+      - name: payments
+      - description: Represents a payment made by a customer. Payments are associated to a single Invoice
+                      and Subscription
+      - name: subscriptions
+      - description: Connects a customer record to products/services. It describes
+                     what the customer has signed up for and how often they're charged for it, the
+                     amount they are paying and how much discount they are receiving.
