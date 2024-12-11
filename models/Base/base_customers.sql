@@ -30,6 +30,7 @@ formatted AS (
         CAST(subscriptions_id AS STRING) AS subscriptions_id
         
     FROM raw_data 
+    {{ add_rows_limit() }} 
 )
 
 SELECT

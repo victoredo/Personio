@@ -34,6 +34,7 @@ formatted as (
         CAST(event_name AS STRING) AS event_name,
         CAST(json AS VARIANT) AS json 
     from  raw_data
+    {{ add_rows_limit() }} 
 )
 
 SELECT
