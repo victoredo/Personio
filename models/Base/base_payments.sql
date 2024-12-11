@@ -6,6 +6,7 @@
 WITH raw_data AS (
 
     SELECT * FROM {{ source('persionio_core', 'payments') }}
+    {{ add_rows_limit() }} 
 
 ),
 

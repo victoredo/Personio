@@ -11,6 +11,7 @@
 WITH raw_data AS (
 
     SELECT * FROM {{ source('persionio_core', 'subscriptions') }}
+    {{ add_rows_limit() }} 
 
 ),
 
