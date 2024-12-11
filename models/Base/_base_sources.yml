@@ -7,19 +7,31 @@ sources:
     schema: persionio_core
     tables:
       - name: customers
-      - description: Represents a customer. Subscriptions, Card and Billing Address are associated with the
+        description: Represents a customer. Subscriptions, Card and Billing Address are associated with the
                      customer resource.
+        loaded_at_field: ingested_at
+        freshness: 
+          warn_after: {count: 7, period: hour}
+          error_after: {count: 12, period: hour}
       - name: events
-      - description: logs changes in billing system
+        description: logs changes in billing system
+        loaded_at_field: created_at 
+        freshness: 
+          warn_after: {count: 7, period: hour}
+          error_after: {count: 12, period: hour}
       - name: invoices
-      - description: Represents a charge for products/services offered to a customer. It enumerates all the
+        description: Represents a charge for products/services offered to a customer. It enumerates all the
                      charges, adjustments, payments, discounts and taxes associated with the sale.
+        loaded_at_field: created_at 
+        freshness: 
+          warn_after: {count: 7, period: hour}
+          error_after: {count: 12, period: hour}
       - name: products
-      - description: Represents a principal or key product or service in your catalog.
+        description: Represents a principal or key product or service in your catalog.
       - name: payments
-      - description: Represents a payment made by a customer. Payments are associated to a single Invoice
+        description: Represents a payment made by a customer. Payments are associated to a single Invoice
                       and Subscription
       - name: subscriptions
-      - description: Connects a customer record to products/services. It describes
+        description: Connects a customer record to products/services. It describes
                      what the customer has signed up for and how often they're charged for it, the
                      amount they are paying and how much discount they are receiving.
